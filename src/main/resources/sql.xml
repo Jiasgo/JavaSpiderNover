@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="sql">
+    <select id="selectNovelInfoById" parameterType="String" resultType="BeanNovel.Novel_info">
+        select * from novel_info where id = #{id}
+    </select>
+
+
+    <insert id="insertNovelInfo" parameterType="BeanNovel.Novel_info" useGeneratedKeys="true" keyProperty="id">
+        insert into fiction values(#{id}, #{name}, #{author}, #{type}, #{state}, #{lastestupdate}, #{lastestChapter}, #{intro})
+    </insert>
+
+
+
+    <insert id="insertChapterInfo" parameterType="BeanNovel.Chapter_info" useGeneratedKeys="true" keyProperty="id">
+        insert into chapters values(#{id}, #{fictionId}, #{title}, #{content}, #{html}, #{createDate})
+    </insert>
+
+
+    <select id="selectFictionById" resultType="String">
+        select id from fiction where id='1'
+    </select>
+
+    <select id="selectChaptersContent" resultType="String" parameterType="int">
+        select chapters.content,chapters.title from fiction,chapters where fiction.id=chapters.fictionId and fiction.id=#{id}
+    </select>
+
+    <select id="selectInfo" resultType="BeanNovel.Novel_info" parameterType="BeanNovel.Novel_info">
+        select * from fiction
+    </select>
+
+    <select id="selectInfo_id" parameterType="String" resultType="int">
+        select id from fiction where name=#{name}
+    </select>
+</mapper>
